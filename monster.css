@@ -1,0 +1,360 @@
+button,hr,input{overflow:visible}
+audio,canvas,progress,video{display:inline-block}
+progress,sub,sup{vertical-align:baseline}
+html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+ menu,article,aside,details,footer,header,nav,section{display:block}
+h1{font-size:2em;margin:.67em 0}
+figcaption,figure,main{display:block}
+figure{margin:1em 40px}
+hr{box-sizing:content-box;height:0}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+a{background-color:transparent;-webkit-text-decoration-skip:objects}
+a:active,a:hover{outline-width:0}
+abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}
+b,strong{font-weight:bolder}
+dfn{font-style:italic}
+mark{background-color:#ff0;color:#000}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative}
+sub{bottom:-.25em}
+sup{top:-.5em}
+audio:not([controls]){display:none;height:0}
+img{border-style:none}
+svg:not(:root){overflow:hidden}
+button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}
+button,select{text-transform:none}
+[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}
+[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}
+textarea{overflow:auto}
+[type=checkbox],[type=radio]{box-sizing:border-box;padding:0;cursor: pointer;}
+[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}
+::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+summary{display:list-item}
+[hidden],template{display:none}
+
+ul {margin: 0;padding: 0;}
+ul > li {list-style-image: none;display: block;}
+header {display: flex;align-items: stretch;}
+
+label {text-transform: uppercase;font-size: 12px;}
+
+textarea {
+    font-size: 12px;
+    text-align: left;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    resize: none;
+    overflow: hidden;
+}
+
+.charsheet {
+    width: 800px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.charsheet_quarter {
+  width: 400px;
+  right: 0;
+  left: 0;
+  margin-right: 400px;
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.charsheet_quarter header {display: block; align-items: unset;}
+
+/********** HEADERS **********/
+.charsheet header section {
+    border: 1px solid black;
+    border-radius: 0 10px 10px 0;
+    padding: 5px;
+    width: 50%;
+    bottom: 0;
+    top: 0;
+}
+
+.charsheet_quarter header section {
+  border: 1px solid black;
+  border-radius: 10px 10px 0 0;
+  padding: 5px;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+}
+  
+.charsheet header section:first-child {
+    border-right: 0;
+    border-radius: 10px 0 0 10px;
+}
+
+.combat_conditions {
+    padding: 10px;
+    padding-bottom: 0;
+}
+
+.combat_conditions .monster_title {
+    position: relative;
+}
+
+.combat_conditions .monster_title h1 {
+    font-size: 1.25em;
+    border-bottom: 1px #aaa solid;
+    margin: 0;
+}
+
+.combat_conditions .monster_title span {
+    position:absolute;
+    bottom: 2px;
+    right: 0;
+    font-size: 1.0em;
+}
+
+.combat_conditions .subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  text-align: right;
+}
+
+.combat_conditions .subtitle strong {
+  float: left;
+}
+
+.combat_stats {
+  background-color: #eee;
+}
+
+header.combat_header section ul {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 4px;
+}
+
+header.combat_header section.combat_conditions ul li {
+  width: 49%;
+  font-size: 16px;
+}
+
+header.combat_header section.combat_stats ul li {
+    width: 22%;
+}
+
+header.combat_header section.combat_stats div.combat_stat {
+    height: 62px;
+    background-color: white;
+    padding: 4px 8px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+header.combat_header section.combat_stats div.combat_stat div {
+    border-bottom: 1px #ccc solid;
+}
+
+header.combat_header section.combat_stats div.combat_stat label {
+    font-size: 10px;
+}
+
+header.combat_header section.combat_stats div.combat_stat input {
+    text-align: center;
+    width: 100%;
+    border: 0;
+    height: 26px;
+}
+
+/********** MAIN **********/
+
+
+main {
+    display: flex;
+    justify-content: space-between;
+}
+
+main > section {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+
+.charsheet_quarter main > section {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+}
+
+main > sect0ion:first-child {
+    height: 372px;
+}
+
+main > section > section {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+main > section:first-child > section .card_info {
+    padding: 10px 10px 2px 10px;
+    font-size: 12px;
+    height: 140px;
+    position: relative;
+}
+
+main > section:first-child > section .card_info li {
+    margin-bottom: 4px;
+}
+
+main > section:first-child > section .card_info div {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+
+main .attributes {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+main .attributes th {
+    border-bottom: 1px #333 solid;
+}
+
+main .attributes th, main .attributes td {
+    border-left: 1px #333 solid;
+}
+
+main .attributes th:nth-child(1), main .attributes td:nth-child(1) {
+    border-left: 0;
+}
+
+main .attributes th:nth-child(1) {
+  border-top-left-radius: 10px;
+}
+
+main .attributes th:nth-child(6) {
+  border-top-right-radius: 10px;
+}
+
+main .attributes th {
+    padding: 8px 0 4px;
+    text-align: center;
+    background-color: #eee;
+
+}
+
+main .attributes td {
+    padding: 6px 0 2px;
+    text-align: center;
+}
+
+main .card_info .card_tab {
+    padding: 6px 10px; 
+    border-bottom: 1px #000 solid; 
+    background-color: #eee; 
+    border-radius: 10px 10px 0 0;
+    position: relative;
+}
+
+main .card_info .card_tab > .bonus {
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    border: 1px #000 solid;
+    border-radius: 6px;
+    text-align: center;
+    background-color: #fff;
+    width: 32px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+main .card_info .card_body {
+    padding: 8px 10px 5px;
+    font-size: 12px;
+}
+
+
+.top_header {
+    border-bottom: 1px #aaa solid;
+    background-color: #ccc;
+    padding: 16px;
+}
+
+.top_header > button {
+    float: right;
+    line-height: 24px;
+    font-size: 22px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 5px 2px 5px #aaa;
+}
+
+#monster_selector {
+    position: relative;
+    width: 400px;
+    display: inline-block;
+}
+
+#monster_selector input{
+    width: 320px;
+    border: none;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.73);
+    padding: 10px 5px ;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#monster_selector input:focus{
+    box-shadow: 5px 2px 5px #aaa;
+}
+
+#monster_selector button {
+    border: 1px #bbb solid;
+    border-radius: 12px;
+    right: 24px;
+    position: relative;
+    font-size: 12px;
+    padding: 2px 6px;
+    bottom: 2px;
+    cursor: pointer;
+}
+
+#monster_selector ul::before{
+    content: '';
+}
+  
+#monster_selector ul {
+    width: 320px;
+    list-style-type: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid gray;
+    position: absolute;
+    box-shadow: 5px 2px 5px #aaa;
+    z-index: 1;
+}
+  
+#monster_selector li{
+    padding: 10px 5px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+  
+#monster_selector li:hover{
+    background: #dedede;
+}

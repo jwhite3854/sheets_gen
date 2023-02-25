@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Awesome Heroes</title>
+    <meta name="description" content="CCW Classic 3 Piece Modular Forged Wheel">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="sheet.css" />
+
+    <style media="print">
+      select {
+        border: 0;
+        background-color: #fff;
+        appearance: none;
+      }
+    </style>
+    
+    <script type="module">
+      import { createApp } from './petite-module.min.js'
+      import { AwesomeHeroes } from './components/AwesomeHeroes.js'
+
+      createApp({AwesomeHeroes}).mount()
+    </script>
+    
+  </head>
+  <body>
+    <div class="charsheet" v-scope="AwesomeHeroes()">
+    <header>
+        <section class="charname">
+            <div class="input-box" id="charname">&nbsp;&nbsp;&nbsp;</div>
+            <label for="charname">Character Name</label>
+        </section>
+        <section class="misc">
+          <ul>
+            <li style="width: 9%">
+                <div class="input-box select-box" id="pri_level">
+                    <select v-model="pri_level">
+                        <option>1</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <label for="pri_level">Level</label>
+            </li>
+            <li style="width: 24%">
+                <div class="input-box" id="pri_class">{{ pri_class_name() }}</div>
+                <label for="pri_class">Class</label>
+            </li>
+            <li style="width: 29%">
+                <div class="input-box" id="race">{{ pri_race_name() }}</div>
+                <label for="race">Race</label>
+            </li>
+            <li style="width: 35%">
+                <div class="input-box select-box" id="concept">
+                    <select v-model="selected_hero_key">
+                        <option value="" disabled>Select a Hero</option>
+                        <option v-for="option of hero_list()" :value="option.value">{{ option.text }}</option>
+                    </select>
+                </div>
+                <label for="concept">Concept</label>
+            </li>
+          </ul>
+        </section>
+      </header>
+      <main style="page-break-after: always;">
+        <section>
+          <section class="attributes">
+            <div class="scores">
+              <ul>
+                <li>
+                  <div class="score">
+                    <label for="Strengthscore">Strength</label>
+                    <input name="Strengthscore" :value="attribute('str')" />
+                  </div>
+                  <div class="modifier">
+                    <input name="Strengthmod" :value="att_modifier('str')" />
+                  </div>
+                </li>
+                <li>
+                  <div class="score">
+                    <label for="Dexterityscore">Dexterity</label>
+                    <input name="Dexterityscore" :value="attribute('dex')" />
+                  </div>
+                  <div class="modifier">
+                    <input name="Dexteritymod" :value="att_modifier('dex')" />
+                  </div>
+                </li>
+                <li>
+                  <div class="score">
+                    <label for="Constitutionscore">Constitution</label>
+                    <input name="Constitutionscore" :value="attribute('con')" />
+                  </div>
+                  <div class="modifier">
+                    <input name="Constitutionmod" :value="att_modifier('con')" />
+                  </div>
+                </li>
+                <li>
+                  <div class="score">
+                    <label for="Intelligencescore">Intelligence</label>
+                    <input name="Intelligencescore" :value="attribute('int')" />
+                  </div>
+                  <div class="modifier">
+                    <input name="Intelligencemod" :value="att_modifier('int')" />
+                  </div>
+                </li>
+                <li>
+                  <div class="score">
+                    <label for="Wisdomscore">Wisdom</label>
+                    <input name="Wisdomscore" :value="attribute('wis')" />
+                  </div>
+                  <div class="modifier">
+                    <input name="Wisdommod" :value="att_modifier('wis')" />
+                  </div>
+                </li>
+
+                <li>
+                  <div class="score">
+                    <label for="Charismascore">Charisma</label>
+                    <input name="Charismascore" :value="attribute('cha')" />
+                  </div>
+                  <div class="modifier">
+                    <input name="Charismamod" :value="att_modifier('cha')" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="attr-applications">
+              <div class="inspiration box">
+                <div class="label-container">
+                  <label for="inspiration">Inspiration</label>
+                </div>
+                <input name="inspiration" type="checkbox" />
+              </div>
+              <div class="proficiencybonus box">
+                <div class="label-container">
+                  <label for="proficiencybonus">Proficiency Bonus</label>
+                </div>
+                <input name="proficiencybonus" placeholder="+2" value="+2"/>
+              </div>
+              <div class="saves list-section box">
+                <ul>
+                  <li>
+                    <label for="Strength-save">Strength</label>
+                    <input name="Strength-save" placeholder="+0" type="text" :value="save_mod('str')" />
+                    <input name="Strength-save-prof" type="checkbox" :checked="is_save_prof('str')" />
+                  </li>
+                  <li>
+                    <label for="Dexterity-save">Dexterity</label>
+                    <input name="Dexterity-save" placeholder="+0" type="text" :value="save_mod('dex')"/>
+                    <input name="Dexterity-save-prof" type="checkbox" :checked="is_save_prof('dex')" />
+                  </li>
+                  <li>
+                    <label for="Constitution-save">Constitution</label>
+                    <input name="Constitution-save" placeholder="+0" type="text" :value="save_mod('con')"/>
+                    <input name="Constitution-save-prof" type="checkbox" :checked="is_save_prof('con')" />
+                  </li>
+                  <li>
+                    <label for="Intelligence-save">Intelligence</label>
+                    <input name="Intelligence-save" placeholder="+0" type="text" :value="save_mod('int')"/>
+                    <input name="Intelligence-save-prof" type="checkbox" :checked="is_save_prof('int')" />
+                  </li>
+                  <li>
+                    <label for="Wisdom-save">Wisdom</label>
+                    <input name="Wisdom-save" placeholder="+0" type="text" :value="save_mod('wis')"/>
+                    <input name="Wisdom-save-prof" type="checkbox" :checked="is_save_prof('wis')" />
+                  </li>
+                  <li>
+                    <label for="Charisma-save">Charisma</label>
+                    <input name="Charisma-save" placeholder="+0" type="text" :value="save_mod('cha')"/>
+                    <input name="Charisma-save-prof" type="checkbox" :checked="is_save_prof('cha')" />
+                  </li>
+                </ul>
+                <div class="label">
+                  Saving Throws
+                </div>
+              </div>
+              <div class="skills list-section box">
+                <ul id="skills_list">
+                  <li v-for="skill of skills_list()">
+                    <label >{{ skill.name }} <span class="skill">({{ skill.mod }})</span></label>
+                    <input placeholder="+0" type="text" :value="skill.attr_mod"/><input type="checkbox" :checked="skill.is_prof" />
+                  </li>
+                </ul>
+                <div class="label">
+                  Skills
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="passive-perception box">
+            <div class="label-container">
+              <label for="passiveperception">Passive Wisdom (Perception)</label>
+            </div>
+            <input name="passiveperception" placeholder="10" :value="passive_perception()" />
+          </div>
+          <section class="otherprofs">
+              <div>
+                  <label for="otherprofs">Proficiencies & Languages</label>
+                  <textarea name="otherprofs">{{ hero_proficiencies() }}</textarea>
+              </div>
+            </section>
+        </section>
+        <section>
+          <section class="combat">
+            <div class="armorclass">
+              <div>
+                <label for="ac">Armor Class</label>
+                <input name="ac" placeholder="10" type="text" v-model="armor_class()"/>
+              </div>
+            </div>
+            <div class="initiative">
+              <div>
+                <label for="initiative">Initiative</label>
+                <input name="initiative" placeholder="+0" type="text" v-model="initiative()"/>
+              </div>
+            </div>
+            <div class="speed">
+              <div>
+                <label for="speed">Speed</label>
+                <input name="speed" placeholder="30" type="text" v-model="speed()" />
+              </div>
+            </div>
+            <div class="hp">
+              <div class="regular">
+                <div class="max">
+                  <label for="maxhp">Hit Point Maximum</label><input name="maxhp" type="text" v-model="hit_points()"/>
+                </div>
+                <div class="current">
+                  <label for="currenthp">Current Hit Points</label><input name="currenthp" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="hitdice">
+              <div>
+                <div class="total">
+                  <label for="totalhd">Total</label><input name="totalhd" type="text" v-model="hit_dice()"/>
+                </div>
+                <div class="remaining">
+                  <label for="remaininghd">Hit Dice</label><input name="remaininghd" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="deathsaves">
+              <div>
+                <div class="label">
+                  <label>Death Saves</label>
+                </div>
+                <div class="marks">
+                  <div class="deathsuccesses">
+                    <label>Successes</label>
+                    <div class="bubbles">
+                      <input name="deathsuccess1" type="checkbox" />
+                      <input name="deathsuccess2" type="checkbox" />
+                      <input name="deathsuccess3" type="checkbox" />
+                    </div>
+                  </div>
+                  <div class="deathfails">
+                    <label>Failures</label>
+                    <div class="bubbles">
+                      <input name="deathfail1" type="checkbox" />
+                      <input name="deathfail2" type="checkbox" />
+                      <input name="deathfail3" type="checkbox" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="attacksandspellcasting">
+            <div>
+              <label>Attacks & Spellcasting</label>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      Name
+                    </th>
+                    <th>
+                      Attk+
+                    </th>
+                    <th>
+                      Damage/Type
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="weapon of weapons_rows()">
+                    <td>
+                      <input type="text" :value="weapon.name" />
+                    </td>
+                    <td>
+                      <input type="text" :value="weapon.attk" />
+                    </td>
+                    <td>
+                      <input type="text" :value="weapon.dmg" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <textarea>{{ spells_list() }}</textarea>
+            </div>
+          </section>
+          <section class="equipment">
+            <div>
+              <label>Equipment</label>
+              <textarea>{{ hero_gear() }}</textarea>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section class="flavor">
+            <div class="personality">
+              <label for="personality">Personality</label><textarea name="personality"></textarea>
+            </div>
+            <div class="ideals">
+              <label for="ideals">Ideals</label><textarea name="ideals"></textarea>
+            </div>
+            <div class="bonds">
+              <label for="bonds">Bonds</label><textarea name="bonds"></textarea>
+            </div>
+            <div class="flaws">
+              <label for="flaws">Flaws</label><textarea name="flaws"></textarea>
+            </div>
+          </section>
+          <section class="features">
+            <div>
+              <label for="features">Features & Traits</label>
+              <textarea name="features">{{ hero_traits() }}</textarea>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <div style="margin:20px;"></div>
+
+      <header class="combat_header">
+        
+          <section class=" combat combat_stats">
+            <div class="hitdice">
+              <div>
+                <div class="remaining" style="padding: 4px 2px 0;">
+                  <label for="remaininghd">Combat Order</label>
+                  <input name="remaininghd" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="hitdice">
+              <div>
+                <div class="remaining"  style="padding: 4px 2px 0;">
+                  <label for="remaininghd">Hit Points</label><input name="remaininghd" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="hitdice">
+              <div>
+                <div class="remaining" style="padding: 4px 2px 0;">
+                  <label for="remaininghd">Armor</label><input name="remaininghd" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="hitdice">
+              <div>
+                <div class="remaining" style="padding: 4px 2px 0; text-align: center;">
+                  <label for="remaininghd">Speed</label><input name="remaininghd" type="text">
+                </div>
+              </div>
+            </div>
+          </section>
+          
+        <section class="combat_conditions">
+          <div>
+            <label>Conditions</label>
+            <textarea>{{ hero_gear() }}</textarea>
+          </div>
+        </section>
+      </header>
+
+      <h3></h3>
+      <main>
+        <section style="width:49%">
+          <section class="actions">
+            <table class="actions_attacks">
+              <thead>
+                <tr>
+                  <td>
+                    <label>Name</label>
+                  </td>
+                  <td>
+                    <label>Attk+</label>
+                  </td>
+                  <td>
+                    <label>Damage/Type</label>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="weapon of weapons_rows()">
+                  <td>
+                    <input type="text" :value="weapon.name" />
+                  </td>
+                  <td style="width:40px;">
+                    <input type="text" :value="weapon.attk" />
+                  </td>
+                  <td>
+                    <input type="text" :value="weapon.dmg" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+
+      <section style="width:49%">
+        <section class="actions">
+         
+        </section>
+      </section>
+    </main>
+
+      <h3>Standard Actions</h3>
+      <main>
+        <section v-for="action of hero_standard_actions(0)">
+          <section class="actions">
+            <div><label>{{ action.name }}</label>
+              <p>{{ action.text }}</p></div>
+          </section>
+        </section>
+      </main>
+      <main>
+        <section v-for="action of hero_standard_actions(3)">
+          <section class="actions">
+            <div><label>{{ action.name }}</label>
+              <p>{{ action.text }}</p></div>
+          </section>
+        </section>
+      </main>
+      <main>
+        <section v-for="action of hero_standard_actions(6)">
+          <section class="actions">
+            <div><label>{{ action.name }}</label>
+              <p>{{ action.text }}</p></div>
+          </section>
+        </section>
+      </main>
+
+
+      <h3>Bonus Actions</h3>
+      <main>
+        <section>
+          <section class="actions">
+            <div>asdfsafdd</div>
+          </section>
+        </section>
+        
+        <section>
+          <section class="actions">
+            <div>asdfsafdd</div>
+          </section>
+        </section>
+
+        <section>
+          <section class="actions">
+            <div>asdfsafdd</div>
+          </section>
+        </section>
+      </main>
+
+      <h3>Reactions</h3>
+      <main>
+        <section>
+          <section class="actions">
+            <div>asdfsafdd</div>
+          </section>
+        </section>
+        
+        <section>
+          <section class="actions">
+            <div>asdfsafdd</div>
+          </section>
+        </section>
+
+        <section>
+          <section class="actions">
+            <div>asdfsafdd</div>
+          </section>
+        </section>
+      </main>
+
+      <h3>Free Actions</h3>
+      <div>
+        <section class="actions">
+          <div>asdfsafdd</div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

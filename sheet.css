@@ -1,0 +1,798 @@
+button,hr,input{overflow:visible}
+audio,canvas,progress,video{display:inline-block}
+progress,sub,sup{vertical-align:baseline}
+html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+ menu,article,aside,details,footer,header,nav,section{display:block}
+h1{font-size:2em;margin:.67em 0}
+figcaption,figure,main{display:block}
+figure{margin:1em 40px}
+hr{box-sizing:content-box;height:0}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+a{background-color:transparent;-webkit-text-decoration-skip:objects}
+a:active,a:hover{outline-width:0}
+abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}
+b,strong{font-weight:bolder}
+dfn{font-style:italic}
+mark{background-color:#ff0;color:#000}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative}
+sub{bottom:-.25em}
+sup{top:-.5em}
+audio:not([controls]){display:none;height:0}
+img{border-style:none}
+svg:not(:root){overflow:hidden}
+button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}
+button,input{}
+button,select{text-transform:none}
+[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}
+[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}
+progress{}
+textarea{overflow:auto}
+[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}
+[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}
+::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+summary{display:list-item}
+[hidden],template{display:none}
+
+.charsheet {
+    width: 800px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul > li {
+    list-style-image: none;
+    display: block;
+}
+
+label {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+header {
+    display: flex;
+    align-items: stretch;
+}
+
+header section.charname {
+    border: 1px solid black;
+    border-right: 0;
+    border-radius: 10px 0 0 10px;
+    padding: 5px 0;
+    background-color: #eee;
+    width: 30%;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+  
+header section.charname .input-box {
+    padding: 0.5em;
+    margin: 6px;
+    border: 0;
+}
+
+header section.charname label {
+    padding-left: 1em;
+}
+
+header section.misc {
+    width: 70%;
+    border: 1px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 5px 1em;
+}
+
+header section.misc ul {
+    width: 100%;
+}
+
+header section.misc ul li {
+    display: inline-block;
+}
+
+header section.misc label {
+    padding-left: 4px;
+}
+ 
+header section.misc ul li .input-box {
+    border: 0;
+    margin: 5px 0;
+    width: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+header section.misc ul li .input-box.select-box {
+  margin-top: 2px;
+}
+
+header section.misc ul li .input-box.select-box > select {
+  height: 21px;
+  margin-top: 1px;
+}
+
+
+header.combat_header {
+
+}
+
+header.combat_header section.combat_stats {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-right: 0;
+  border-radius: 10px 0 0 10px;
+  background-color: #eee;
+  width: 50%;
+}
+
+header.combat_header section.combat_stats > .hitdice {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+header.combat_header section.combat_conditions {
+  border: 1px solid black;
+  border-radius: 0 10px 10px 0;
+  width: 50%;
+}
+
+
+header.combat_header section.combat_conditions div {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+header.combat_header section.combat_conditions div > label {
+  order: 3;
+  text-align: center;
+  flex: 100%;
+}
+header.combat_header section.combat_conditionss div > textarea {
+  flex: 1;
+  border: 0;
+}
+
+textarea {
+    font-size: 12px;
+    text-align: left;
+    width: calc(100% - 20px - 2px);
+    border-radius: 10px;
+    padding: 10px;
+    resize: none;
+    overflow: hidden;
+    height: 15.5em;
+  }
+  
+  input[type=checkbox] {
+    cursor: pointer;
+  }
+  
+  div.box {
+    margin-top: 10px;
+  }
+  
+
+  .charsheet div.textblock {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+  }
+  .charsheet div.textblock label {
+    text-align: center;
+    border: 1px solid black;
+    border-top: 0;
+    font-size: 10px;
+    width: calc(100% - 20px - 2px);
+    border-radius: 0 0 10px 10px;
+    padding: 4px 0;
+    font-weight: bold;
+  }
+  .charsheet div.textblock textarea {
+    border: 1px solid black;
+  }
+
+
+
+  .charsheet main {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .charsheet main div.label-container {
+    position: relative;
+    width: 100%;
+    height: 18px;
+    margin-top: 6px;
+    border: 1px solid black;
+    border-left: 0;
+    text-align: center;
+  }
+  .charsheet main div.label-container > label {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    transform: translate(0%, 50%);
+    width: 100%;
+    font-size: 8px;
+  }
+  .charsheet main > section {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+  }
+  .charsheet main > section section.attributes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .charsheet main > section section.attributes div.scores {
+    width: 101px;
+    background-color: #bbb;
+    border-radius: 10px;
+    padding-bottom: 5px;
+  }
+  .charsheet main > section section.attributes div.scores label {
+    font-size: 8px;
+    font-weight: bold;
+  }
+  .charsheet main > section section.attributes div.scores ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+  }
+  .charsheet main > section section.attributes div.scores ul li {
+    height: 80px;
+    width: 70px;
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+  }
+  .charsheet main > section section.attributes div.scores ul li input {
+    width: 96%;
+    padding: 0;
+    border: 0;
+  }
+  .charsheet main > section section.attributes div.scores ul li div.score input {
+    text-align: center;
+    font-size: 40px;
+    padding: 2px 0px 0px 0px;
+    margin: 0 2px;
+    /**background: white;*/
+  }
+  .charsheet main > section section.attributes div.scores ul li div.modifier {
+    margin-top: 3px;
+  }
+  .charsheet main > section section.attributes div.scores ul li div.modifier input {
+    background: white;
+    width: 30px;
+    height: 20px;
+    border: 1px inset black;
+    border-radius: 20px;
+    margin: -1px;
+    text-align: center;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.inspiration {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.inspiration input {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.proficiencybonus {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.proficiencybonus input {
+    width: 30px;
+    height: 28px;
+    border: 1px solid black;
+    text-align: center;
+    border-radius: 10px;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px 5px;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section div.label {
+    margin-top: 10px;
+    margin-bottom: 2.5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li {
+    display: flex;
+    align-items: center;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li > * {
+    margin-left: 5px;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li label {
+    text-transform: none;
+    font-size: 8px;
+    text-align: left;
+    order: 3;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li label span.skill {
+    color: #bbb;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li input[type=text] {
+    width: 30px;
+    font-size: 12px;
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid black;
+    order: 2;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li input[type=checkbox] {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    order: 1;
+  }
+  .charsheet main > section section.attributes div.attr-applications div.list-section ul li input[type=checkbox]:checked {
+    background-color: black;
+  }
+  .charsheet main > section div.passive-perception {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .charsheet main > section div.passive-perception input {
+    width: 30px;
+    height: 28px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  .charsheet main section.combat {
+    background-color: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+  }
+  .charsheet main section.combat > div {
+    overflow: hidden;
+  }
+  .charsheet main section.combat > div.armorclass, .charsheet main section.combat > div.initiative, .charsheet main section.combat > div.speed {
+    flex-basis: 33.333%;
+  }
+  .charsheet main section.combat > div.armorclass > div, .charsheet main section.combat > div.initiative > div, .charsheet main section.combat > div.speed > div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .charsheet main section.combat > div.armorclass > div label, .charsheet main section.combat > div.initiative > div label, .charsheet main section.combat > div.speed > div label {
+    font-size: 8px;
+    width: 50px;
+    border: 1px solid black;
+    border-top: 0;
+    background-color: white;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 0 0 10px 10px;
+  }
+  .charsheet main section.combat > div.armorclass > div input, .charsheet main section.combat > div.initiative > div input, .charsheet main section.combat > div.speed > div input {
+    height: 70px;
+    width: 70px;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 30px;
+  }
+  .charsheet main section.combat > div.hp {
+    flex-basis: 100%;
+  }
+  .charsheet main section.combat > div.hp > div.regular {
+    background-color: white;
+    border: 1px solid black;
+    margin: 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+  }
+  .charsheet main section.combat > div.hp > div.regular > div.max {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    margin-top: 6px;
+  }
+  .charsheet main section.combat > div.hp > div.regular > div.max label {
+    font-size: 10px;
+    text-transform: none;
+    color: #bbb;
+  }
+  .charsheet main section.combat > div.hp > div.regular > div.max input {
+    width: 40%;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+    text-align: center;
+  }
+  .charsheet main section.combat > div.hp > div.regular > div.current {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0 2px;
+  }
+  .charsheet main section.combat > div.hp > div.regular > div.current input {
+    border: 0;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 20px;
+    text-align: center;
+  }
+  .charsheet main section.combat > div.hp > div.regular > div.current label {
+    font-size: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .charsheet main section.combat > div.hp > div.temporary {
+    margin: 10px;
+    margin-top: 0;
+    border: 1px solid black;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: white;
+  }
+  .charsheet main section.combat > div.hp > div.temporary input {
+    padding: 1em 0;
+    font-size: 20px;
+    border: 0;
+    text-align: center;
+  }
+  .charsheet main section.combat > div.hp > div.temporary label {
+    font-size: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .charsheet header section.combat > div.hitdice, 
+  .charsheet main section.combat > div.hitdice, .charsheet main section.combat > div.deathsaves {
+    flex: 1 50%;
+    height: 88px;
+  }
+
+  .charsheet header section.combat > div.hitdice > div,
+  .charsheet main section.combat > div.hitdice > div, .charsheet main section.combat > div.deathsaves > div {
+    height: 64px;
+  }
+
+  .charsheet header section.combat > div.hitdice > div, 
+  .charsheet main section.combat > div.hitdice > div {
+    background-color: white;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .charsheet main section.combat > div.hitdice > div > div.total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+    padding: 5px 0;
+  }
+  .charsheet main section.combat > div.hitdice > div > div.total label {
+    font-size: 10px;
+    color: #bbb;
+    margin: 0.25em;
+    text-transform: none;
+  }
+
+  .charsheet header section.combat > div.hitdice > div > div.total input,
+  .charsheet main section.combat > div.hitdice > div > div.total input {
+    font-size: 12px;
+    flex-grow: 1;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    width: 50%;
+    margin-right: 0.25em;
+    padding: 0 0.25em;
+    text-align: center;
+  }
+
+  .charsheet header section.combat > div.hitdice > div > div.remaining, 
+  .charsheet main section.combat > div.hitdice > div > div.remaining {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0 2px;
+  }
+  .charsheet header section.combat > div.hitdice > div > div.remaining label, 
+  .charsheet main section.combat > div.hitdice > div > div.remaining label {
+    text-align: center;
+    padding: 2px;
+    font-size: 10px;
+  }
+  .charsheet header section.combat > div.hitdice > div > div.remaining input, 
+  .charsheet main section.combat > div.hitdice > div > div.remaining input {
+    text-align: center;
+    border: 0;
+    flex: 1;
+  }
+  .charsheet main section.combat > div.deathsaves > div {
+    margin: 10px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .charsheet main section.combat > div.deathsaves > div > div.label {
+    text-align: center;
+  }
+  .charsheet main section.combat > div.deathsaves > div > div.label label {
+    font-size: 10px;
+  }
+  .charsheet main section.combat > div.deathsaves > div > div.marks {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .charsheet main section.combat > div.deathsaves > div > div.marks div.deathsuccesses, .charsheet main section.combat > div.deathsaves > div > div.marks div.deathfails {
+    display: flex;
+    align-items: center;
+  }
+  .charsheet main section.combat > div.deathsaves > div > div.marks div.deathsuccesses label, .charsheet main section.combat > div.deathsaves > div > div.marks div.deathfails label {
+    font-size: 8px;
+    text-align: right;
+    flex: 1 50%;
+  }
+  .charsheet main section.combat > div.deathsaves > div div.bubbles {
+    flex: 1 40%;
+    margin-left: 5px;
+  }
+  .charsheet main section.combat > div.deathsaves > div div.bubbles input[type=checkbox] {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  .charsheet main section.combat > div.deathsaves > div div.bubbles input[type=checkbox]:checked {
+    background-color: black;
+  }
+  .charsheet main section.attacksandspellcasting {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  .charsheet main section.attacksandspellcasting > div {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .charsheet main section.attacksandspellcasting > div > label {
+    order: 3;
+    text-align: center;
+  }
+  .charsheet main section.attacksandspellcasting > div > table {
+    width: 100%;
+  }
+  .charsheet main section.attacksandspellcasting > div > table th {
+    font-size: 10px;
+    color: #ddd;
+  }
+  .charsheet main section.attacksandspellcasting > div > table input {
+    width: calc(100% - 4px);
+    border: 0;
+    background-color: #eee;
+    font-size: 10px;
+    padding: 3px;
+  }
+  .charsheet main section.attacksandspellcasting > div textarea {
+    border: 0;
+  }
+  .charsheet main section.equipment {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  .charsheet main section.equipment > div {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .charsheet main section.equipment > div > div.money ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .charsheet main section.equipment > div > div.money ul > li {
+    display: flex;
+    align-items: center;
+  }
+  .charsheet main section.equipment > div > div.money ul > li label {
+    border: 1px solid black;
+    border-radius: 10px 0 0 10px;
+    border-right: 0;
+    width: 20px;
+    font-size: 8px;
+    text-align: center;
+    padding: 3px 0;
+  }
+  .charsheet main section.equipment > div > div.money ul > li input {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 40px;
+    padding: 10px 3px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .charsheet main section.equipment > div > label {
+    order: 3;
+    text-align: center;
+    flex: 100%;
+  }
+  .charsheet main section.equipment > div > textarea {
+    flex: 1;
+    border: 0;
+    height: 20em;
+  }
+  .charsheet main section.flavor {
+    padding: 10px;
+    background: #bbb;
+    border-radius: 10px;
+  }
+  .charsheet main section.flavor div {
+    background: white;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 5px;
+    border: 1px solid black;
+  }
+  .charsheet main section.flavor div label {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  .charsheet main section.flavor div textarea {
+    border: 0;
+    border-radius: 0;
+    height: 1.5em;
+  }
+
+  .charsheet main section.flavor div.personality textarea  {
+    height: 5em;
+  }
+
+  .charsheet main section.flavor div:first-child {
+    border-radius: 10px 10px 0 0;
+  }
+  .charsheet main section.flavor div:not(:first-child) {
+    margin-top: 10px;
+  }
+  .charsheet main section.flavor div:last-child {
+    border-radius: 0 0 10px 10px;
+  }
+
+
+  .charsheet main section.otherprofs {
+    padding-top: 10px;
+  }
+  .charsheet main section.otherprofs div {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .charsheet main section.otherprofs div label {
+    text-align: center;
+  }
+  .charsheet main section.otherprofs div textarea {
+    border: 0;
+    padding: 5px;
+    height: 20.75em;
+  }
+
+  .charsheet main section.features {
+    padding-top: 10px;
+  }
+  .charsheet main section.features div {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .charsheet main section.features div label {
+    text-align: center;
+  }
+  .charsheet main section.features div textarea {
+    border: 0;
+    padding: 5px;
+    height: 45em;
+  }
+
+
+  .charsheet header section.combat_conditions div label {
+    text-align: center;
+  }
+  .charsheet header section.combat_conditions div textarea {
+    border: 0;
+    padding: 5px;
+    height: 4em;
+  }
+
+  .container {
+    width: 800px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.input-box {
+    padding: 0.5em;
+    margin: 5px;
+    border: 0;
+    width: 100%;
+    background-color: #fff;
+}
+
+section.actions {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+section.actions p {
+  margin: 10px 0 0;
+  height: 4em;
+}
+
+section.actions table.actions_attacks input {
+  background: #eee;
+  border: 0;
+  padding: 0 2px;
+  margin: 2px 2px 2px 0;
+  width: 98%;
+}

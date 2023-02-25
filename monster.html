@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Awesome Monsters</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./monster.css">
+
+        <style media="print">
+            .charsheet {
+                margin: 24px;
+                width: unset;
+            }
+
+            select {
+                border: 0;
+                background-color: #fff;
+                appearance: none;
+            }
+
+            .section_breaker0, .top_header {
+                display: none;
+            }
+        </style>
+
+        <script type="module">
+            import { createApp, reactive } from './petite-module.min.js'
+            import { AwesomeMonster, MonsterOptions } from './src/AwesomeMonsters.js'
+            import { TypeAheadSelector } from './components/Selector.js'
+
+            const monster = reactive(AwesomeMonster);
+            createApp(monster).mount('#charsheet_quarter');
+            createApp(monster).mount('#charsheet');
+
+            TypeAheadSelector.init({
+                options: MonsterOptions,
+                placeholder: "Type in Monster name",
+            });
+
+            createApp({TypeAheadSelector, monster}).mount('#monster_selector');
+        </script>
+    
+    </head>
+    <body>
+        <div class="top_header">
+            <div id="monster_selector" v-scope>{{ TypeAheadSelector.render($el, monster.fill_properties) }}</div>
+            <button style="float:right" onclick="window.print()">Print</button>
+        </div>
+
+        <div id="charsheet_quarter" class="charsheet_quarter" v-scope>
+            <div class="width: 50%; border-right: 1px #ccc solid; padding-right 20px;">
+                <header class="combat_header">
+                    <section class="combat_conditions">
+                        <div class="monster_title">
+                            <h1>{{Name}}</h1>
+                            <span>CR <strong>{{CR}}</strong> ({{XP}} XP)</span>
+                        </div>
+                        
+                        <div class="info">
+                            <div class="subtitle">
+                                <strong>HP {{HP_full}}</strong>
+                                {{size}} <span>{{type}}, {{alignment}}</span>
+                            </div>
+                            <div class="subtitle">
+                                <strong>AC: {{AC_full}}</strong>
+                                Speed: {{speed_full}}
+                            </div>
+                        </div>
+                    </section>
+                    <section class="combat combat_stats">
+                        <ul>
+                            <li>
+                                <div class="combat_stat">
+                                    <div>{{ init }}</div>
+                                    <input type="text" class="open_input" />
+                                    <label>Combat #</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="combat_stat">
+                                    <div>{{ HP }}</div>
+                                    <input type="text" class="open_input" />
+                                    <label>Hit Points</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="combat_stat">
+                                    <div>{{ AC }}</div>
+                                    <input type="text" class="open_input" />
+                                    <label>Armor</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="combat_stat">
+                                    <div>{{ speed }}</div>
+                                    <input type="text" class="open_input" />
+                                    <label>Speed</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <div>
+                            <table class="attributes">
+                                <thead>
+                                    <tr>
+                                        <th>STR</th><th>DEX</th><th>CON</th><th>INT</th><th>WIS</th><th>CHA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ attributes['STR'] }}</td><td>{{ attributes['DEX'] }}</td><td>{{ attributes['CON'] }}</td>
+                                        <td>{{ attributes['INT'] }}</td><td>{{ attributes['WIS'] }}</td><td>{{ attributes['CHA'] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </header>
+    
+                <main>
+                    <section>
+                        <section>
+                            <div class="card_info">
+                                <ul>
+                                    <li>Saves: {{ saves }}</li>
+                                    <li>Skills: {{ skills }}</li>
+                                    <li>Senses: {{ senses }}</li>
+                                    <li>Passive Perception: {{ passive_perception }}</li>
+                                    <li>Languages: {{ languages }}</li>
+                                </ul>
+                                <div>
+                                    <label>Skills & Proficiencies</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="card_info">
+                                <ul>
+                                    <li>Vulnerabilities: {{ resistances[0] }}</li>
+                                    <li>Damage Vulnerabilities: {{ resistances[1] }}</li>
+                                    <li>Resistances: {{ resistances[2] }}</li>
+                                    <li>Immunities: {{ resistances[3] }}</li>
+                                    <li>Condition Immunities: {{ resistances[4] }}</li>
+                                </ul>
+                                <div>
+                                    <label>Immunities & Weaknesses</label>
+                                </div>
+                                <label></label>
+                            </div>
+                        </section>
+                    </section>
+                    <section>
+                        <section v-for="trait of traits">
+                            <div class="card_info">
+                                <div class="card_tab">
+                                    <label><strong>Trait:</strong> {{ trait.name }}</label>
+                                </div>
+                                <div class="card_body">{{ trait.text }}</div>
+                            </div>
+                        </section>
+                        <section v-for="action of actions">
+                            <div class="card_info">
+                                <div class="card_tab">
+                                    <label><strong>Action:</strong> {{ action.name }}</label>
+                                </div>
+                                <div class="card_body">{{ action.text }}</div>
+                            </div>
+                        </section>
+                        <section v-for="action of legendary_actions">
+                            <div class="card_info">
+                                <div class="card_tab">
+                                    <label><strong>Legendary Action:</strong> {{ action.name }}</label>
+                                </div>
+                                <div class="card_body">{{ action.text }}</div>
+                            </div>
+                        </section>
+                        <section v-for="attack of attacks">
+                            <div class="card_info">
+                                <div class="card_tab">
+                                    <label><strong>Attack:</strong> {{ attack.name }}</label>
+                                    <div class="bonus">{{ attack.hit_bonus }}</div>
+                                </div>
+                                <div class="card_body">
+                                    <ul>
+                                        <li>Range: {{ attack.range }}</li>
+                                    </ul>
+                                </div>
+                                <div class="card_body" style="border-top: 1px solid #000;">Damage: {{ attack.dmg }} {{ attack.dmg_type }}</div>
+                            </div>
+                        </section>
+                        <section v-for="action of reactions">
+                            <div class="card_info">
+                                <div class="card_tab">
+                                    <label><strong>Reaction:</strong> {{ action.Name }}</label>
+                                </div>
+                                <div class="card_body"><textarea>{{ action.Desc }}</textarea></div>
+                            </div>
+                        </section>
+                        <section v-for="attack of legendary_attacks">
+                            <div class="card_info">
+                                <div class="card_tab">
+                                    <label><strong>Legendary Attack:</strong> {{ attack.name }}</label>
+                                    <div class="bonus">{{ attack.hit_bonus }}</div>
+                                </div>
+                                <div class="card_body">
+                                    <ul>
+                                        <li>Range: {{ attack.range }}</li>
+                                    </ul>
+                                </div>
+                                <div class="card_body" style="border-top: 1px solid #000;">Damage: {{ attack.dmg }} {{ attack.dmg_type }}</div>
+                            </div>
+                        </section>
+                    </section>
+                </main>
+            </div>
+
+        </div>
+
+        <div class="section_breaker" style="margin: 20px"><hr/></div>
+
+        <div id="charsheet" class="charsheet" v-scope>
+            <header class="combat_header">
+                <section class="combat_conditions">
+                    <div class="monster_title">
+                        <h1>{{Name}}</h1>
+                        <span>CR <strong>{{CR}}</strong> ({{XP}} XP)</span>
+                    </div>
+                    
+                    <div class="info">
+                        <div class="subtitle">
+                            <strong>HP {{HP_full}}</strong>
+                            {{size}} <span>{{type}}, {{alignment}}</span>
+                        </div>
+                        <div class="subtitle">
+                            <strong>AC: {{AC_full}}</strong>
+                            Speed: {{speed_full}}
+                        </div>
+                    </div>
+                </section>
+                <section class="combat combat_stats">
+                    <ul>
+                        <li>
+                            <div class="combat_stat">
+                                <div>{{ init }}</div>
+                                <input type="text" class="open_input" />
+                                <label>Combat #</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="combat_stat">
+                                <div>{{ HP }}</div>
+                                <input type="text" class="open_input" />
+                                <label>Hit Points</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="combat_stat">
+                                <div>{{ AC }}</div>
+                                <input type="text" class="open_input" />
+                                <label>Armor</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="combat_stat">
+                                <div>{{ speed }}</div>
+                                <input type="text" class="open_input" />
+                                <label>Speed</label>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </header>
+
+            <main>
+                <section>
+                    <section>
+                        <div>
+                            <table class="attributes">
+                                <thead>
+                                    <tr>
+                                        <th>STR</th><th>DEX</th><th>CON</th><th>INT</th><th>WIS</th><th>CHA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ attributes['STR'] }}</td><td>{{ attributes['DEX'] }}</td><td>{{ attributes['CON'] }}</td>
+                                        <td>{{ attributes['INT'] }}</td><td>{{ attributes['WIS'] }}</td><td>{{ attributes['CHA'] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="card_info">
+                            <ul>
+                                <li>Saves: {{ saves }}</li>
+                                <li>Skills: {{ skills }}</li>
+                                <li>Senses: {{ senses }}</li>
+                                <li>Passive Perception: {{ passive_perception }}</li>
+                                <li>Languages: {{ languages }}</li>
+                            </ul>
+                            <div>
+                                <label>Skills & Proficiencies</label>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="card_info">
+                            <ul>
+                                <li>Vulnerabilities: {{ resistances[0] }}</li>
+                                <li>Damage Vulnerabilities: {{ resistances[1] }}</li>
+                                <li>Resistances: {{ resistances[2] }}</li>
+                                <li>Immunities: {{ resistances[3] }}</li>
+                                <li>Condition Immunities: {{ resistances[4] }}</li>
+                            </ul>
+                            <div>
+                                <label>Immunities & Weaknesses</label>
+                            </div>
+                            <label></label>
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <section v-for="trait of traits">
+                        <div class="card_info">
+                            <div class="card_tab">
+                                <label><strong>Trait:</strong> {{ trait.name }}</label>
+                            </div>
+                            <div class="card_body">{{ trait.text }}</div>
+                        </div>
+                    </section>
+                    <section v-for="action of actions">
+                        <div class="card_info">
+                            <div class="card_tab">
+                                <label><strong>Action:</strong> {{ action.name }}</label>
+                            </div>
+                            <div class="card_body">{{ action.text }}</div>
+                        </div>
+                    </section>
+                    <section v-for="action of legendary_actions">
+                        <div class="card_info">
+                            <div class="card_tab">
+                                <label><strong>Legendary Action:</strong> {{ action.name }}</label>
+                            </div>
+                            <div class="card_body">{{ action.text }}</div>
+                        </div>
+                    </section>
+                    <section v-for="attack of legendary_attacks">
+                        <div class="card_info">
+                            <div class="card_tab">
+                                <label><strong>Legendary Attack:</strong> {{ attack.name }}</label>
+                                <div class="bonus">{{ attack.hit_bonus }}</div>
+                            </div>
+                            <div class="card_body">
+                                <ul>
+                                    <li>Range: {{ attack.range }}</li>
+                                </ul>
+                            </div>
+                            <div class="card_body" style="border-top: 1px solid #000;">Damage: {{ attack.dmg }} {{ attack.dmg_type }}</div>
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <section v-for="attack of attacks">
+                        <div class="card_info">
+                            <div class="card_tab">
+                                <label><strong>Attack:</strong> {{ attack.name }}</label>
+                                <div class="bonus">{{ attack.hit_bonus }}</div>
+                            </div>
+                            <div class="card_body">
+                                <ul>
+                                    <li>Range: {{ attack.range }}</li>
+                                </ul>
+                            </div>
+                            <div class="card_body" style="border-top: 1px solid #000;">Damage: {{ attack.dmg }} {{ attack.dmg_type }}</div>
+                        </div>
+                    </section>
+                    <section v-for="action of reactions">
+                        <div class="card_info">
+                            <div class="card_tab">
+                                <label><strong>Reaction:</strong> {{ action.Name }}</label>
+                            </div>
+                            <div class="card_body"><textarea>{{ action.Desc }}</textarea></div>
+                        </div>
+                    </section>
+                </section>
+            </main>
+
+            
+        </div>    
+    </body>
+</html>
